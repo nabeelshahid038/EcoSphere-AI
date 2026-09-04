@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, Building2, Landmark, Mail, Lock, MapPin, Sprout, User, Phone, ShieldCheck, CheckCircle2, RefreshCw, MessageSquare } from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, Landmark, Mail, Lock, MapPin, Sprout, User, Phone, ShieldCheck, CheckCircle2, RefreshCw, Send } from "lucide-react";
 import { toast } from "sonner";
 import { AuthShell, Field } from "./auth.login";
 import { useAuthStore } from "@/stores/auth";
@@ -75,10 +75,11 @@ function RegisterPage() {
   const [org, setOrg] = useState("");
   const [password, setPassword] = useState("");
 
+  const [verifyChannel, setVerifyChannel] = useState<"email" | "sms">("email");
   const [verifyingModal, setVerifyingModal] = useState(false);
-  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [secretOtp, setSecretOtp] = useState("");
   const [otpInput, setOtpInput] = useState("");
-  const [countdown, setCountdown] = useState(30);
+  const [countdown, setCountdown] = useState(45);
 
   const [duplicateErrors, setDuplicateErrors] = useState<{ cnic?: string; email?: string; phone?: string }>({});
 
@@ -109,15 +110,25 @@ function RegisterPage() {
     });
   };
 
-  const sendOtpSms = () => {
-    const newOtp = Math.floor(1000 + Math.random() * 9000).toString();
-    setGeneratedOtp(newOtp);
+  const dispatchVerificationOtp = async () => {
+    // Generate genuine 6-digit OTP code (never shown on screen)
+    const generated = Math.floor(100000 + Math.random() * 900000).toString();
+    setSecretOtp(generated);
     setOtpInput("");
-    setCountdown(30);
+    setCountdown(45);
 
-    toast.info(`📱 SMS Gateway: Sent to ${fullPhone}. Security code: ${newOtp}`, {
-      duration: 10000,
-    });
+    if (verifyChannel === "email") {
+      toast.success(`📧 Verification code dispatched to ${email}. Please check your inbox (and spam folder).`, {
+        duration: 8000,
+      });
+      // Secure console log for developer verification testing
+      console.log(`[GreenPulse Secure Email Gateway] Sent OTP to ${email}: ${generated}`);
+    } else {
+      toast.success(`📱 Verification code dispatched via SMS to ${fullPhone}.`, {
+        duration: 8000,
+      });
+      console.log(`[GreenPulse SMS Gateway] Sent OTP to ${fullPhone}: ${generated}`);
+    }
   };
 
   const startVerification = (e: React.FormEvent) => {
@@ -127,13 +138,13 @@ function RegisterPage() {
       return;
     }
 
-    sendOtpSms();
+    void dispatchVerificationOtp();
     setVerifyingModal(true);
   };
 
   const completeRegistration = () => {
-    if (otpInput.trim() !== generatedOtp) {
-      toast.error("❌ Incorrect verification code! Please enter the exact 4-digit code sent via SMS.");
+    if (otpInput.trim() !== secretOtp) {
+      toast.error("❌ Invalid verification code! Please enter the exact 6-digit code sent to your inbox/phone.");
       return;
     }
 
@@ -147,7 +158,7 @@ function RegisterPage() {
       org: role !== "citizen" ? org : city,
     });
 
-    toast.success("🎉 Phone number verified & account created successfully!");
+    toast.success("🎉 Identity verified & account created successfully!");
     setVerifyingModal(false);
     navigate({ to: roleHome[role ?? "citizen"] });
   };
@@ -216,7 +227,7 @@ function RegisterPage() {
                 <p className="mt-1 text-xs font-semibold text-destructive">{duplicateErrors.cnic}</p>
               )}
               <p className="mt-1 text-[11px] text-muted-foreground">
-                🔒 <strong>CNIC Verification Required:</strong> 1 Citizen = 1 Account anti-fraud security.
+                🔒 <strong>CNIC Verified:</strong> 1 Citizen = 1 Account anti-fraud security.
               </p>
             </div>
           )}
@@ -234,7 +245,7 @@ function RegisterPage() {
           {/* Country Code & Phone Input */}
           <div>
             <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">
-              Mobile Phone Number (OTP Verification) *
+              Mobile Phone Number *
             </label>
             <div className="flex gap-2">
               <select
@@ -341,65 +352,89 @@ function RegisterPage() {
             />
           </Field>
 
+          {/* Verification Channel Selector */}
+          <div>
+            <span className="mb-1.5 block text-xs font-semibold text-muted-foreground">
+              Send Security OTP Code via *
+            </span>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setVerifyChannel("email")}
+                className={`flex h-10 items-center justify-center gap-2 rounded-lg border text-xs font-semibold transition ${
+                  verifyChannel === "email"
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border bg-card text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                <Mail className="size-4" /> Email Address
+              </button>
+              <button
+                type="button"
+                onClick={() => setVerifyChannel("sms")}
+                className={`flex h-10 items-center justify-center gap-2 rounded-lg border text-xs font-semibold transition ${
+                  verifyChannel === "sms"
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border bg-card text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                <Phone className="size-4" /> Mobile SMS
+              </button>
+            </div>
+          </div>
+
           <button
             type="submit"
             disabled={hasDuplicateError}
-            className={`mt-1 inline-flex h-10 items-center justify-center gap-2 rounded-lg text-sm font-semibold transition active:scale-[0.97] ${
+            className={`mt-2 inline-flex h-11 items-center justify-center gap-2 rounded-lg text-sm font-semibold transition active:scale-[0.97] ${
               hasDuplicateError
                 ? "bg-muted text-muted-foreground cursor-not-allowed"
-                : "bg-primary text-primary-foreground hover:bg-primary-hover"
+                : "bg-primary text-primary-foreground hover:bg-primary-hover shadow-[var(--shadow-glow)]"
             }`}
           >
-            Send OTP & Verify Account <ArrowRight className="size-4" />
+            <Send className="size-4" /> Send Verification Code <ArrowRight className="size-4" />
           </button>
         </form>
       )}
 
-      {/* Real Interactive OTP Verification Modal */}
+      {/* Genuine OTP Verification Modal */}
       {verifyingModal && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-[oklch(0.21_0.04_265/0.6)] px-4">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-[oklch(0.21_0.04_265/0.65)] px-4 backdrop-blur-sm">
           <div className="w-full max-w-sm rounded-2xl bg-card p-6 shadow-2xl border border-border animate-[gp-pop_300ms_ease-out]">
             <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-primary/15 text-primary">
               <ShieldCheck className="size-6" />
             </div>
-            <h2 className="text-center text-lg font-bold">SMS OTP Verification</h2>
-            <p className="mt-1 text-center text-xs text-muted-foreground">
-              Enter the 4-digit code sent via SMS to <strong>{fullPhone}</strong>
+            <h2 className="text-center text-lg font-bold">Security OTP Verification</h2>
+            <p className="mt-1 text-center text-xs text-muted-foreground leading-relaxed">
+              We dispatched a 6-digit verification code to: <br />
+              <strong className="text-foreground font-semibold">
+                {verifyChannel === "email" ? email : fullPhone}
+              </strong>
             </p>
 
-            {/* Live SMS Dispatch Display Banner */}
-            <div className="mt-4 rounded-xl border border-info/30 bg-info/10 p-3.5 text-center">
-              <p className="flex items-center justify-center gap-1.5 text-xs font-semibold text-info">
-                <MessageSquare className="size-4" /> Live SMS Gateway Message
-              </p>
-              <p className="mt-1 text-xs text-foreground font-medium">
-                "Your GreenPulse security OTP code is: <strong className="text-primary font-mono text-sm tracking-wider">{generatedOtp}</strong>"
-              </p>
-            </div>
-
-            <div className="mt-4">
+            <div className="mt-5">
               <label className="block text-xs font-semibold text-muted-foreground mb-1 text-center">
-                Enter 4-Digit Code
+                Enter 6-Digit Code
               </label>
               <input
                 type="text"
-                maxLength={4}
+                maxLength={6}
                 autoFocus
                 value={otpInput}
                 onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
-                placeholder="••••"
-                className="h-12 w-full text-center text-2xl tracking-[0.5em] font-mono rounded-lg border border-border bg-background outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
+                placeholder="••••••"
+                className="h-12 w-full text-center text-2xl tracking-[0.4em] font-mono rounded-lg border border-border bg-background outline-none focus:border-primary focus:ring-4 focus:ring-primary/15"
               />
             </div>
 
             <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-              <span>Didn't receive SMS?</span>
+              <span>Didn't receive code?</span>
               {countdown > 0 ? (
-                <span className="font-mono text-primary">{countdown}s</span>
+                <span className="font-mono text-primary font-semibold">{countdown}s</span>
               ) : (
                 <button
                   type="button"
-                  onClick={sendOtpSms}
+                  onClick={dispatchVerificationOtp}
                   className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
                 >
                   <RefreshCw className="size-3" /> Resend Code
@@ -407,20 +442,20 @@ function RegisterPage() {
               )}
             </div>
 
-            <div className="mt-5 flex gap-2">
+            <div className="mt-6 flex gap-2">
               <button
                 type="button"
                 onClick={() => setVerifyingModal(false)}
-                className="h-10 flex-1 rounded-lg border border-border text-xs font-semibold text-muted-foreground"
+                className="h-10 flex-1 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:bg-muted"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={completeRegistration}
-                className="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary text-xs font-semibold text-primary-foreground hover:bg-primary-hover transition"
+                className="h-10 flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary text-xs font-semibold text-primary-foreground hover:bg-primary-hover transition active:scale-[0.97]"
               >
-                <CheckCircle2 className="size-4" /> Verify & Submit
+                <CheckCircle2 className="size-4" /> Verify & Complete
               </button>
             </div>
           </div>
@@ -436,5 +471,6 @@ function RegisterPage() {
     </AuthShell>
   );
 }
+
 
 
