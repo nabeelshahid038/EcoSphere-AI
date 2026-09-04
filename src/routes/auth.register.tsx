@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { AuthShell, Field } from "./auth.login";
 import { useAuthStore } from "@/stores/auth";
 import { roleHome, type Role } from "@/lib/mock-data";
-import { sendRealEmailOTP, sendRealSmsOTP } from "@/lib/otp-service";
+import { sendRealEmailOTP } from "@/lib/otp-service";
 
 export const Route = createFileRoute("/auth/register")({
   head: () => ({
@@ -76,7 +76,6 @@ function RegisterPage() {
   const [org, setOrg] = useState("");
   const [password, setPassword] = useState("");
 
-  const [verifyChannel, setVerifyChannel] = useState<"email" | "sms">("email");
   const [verifyingModal, setVerifyingModal] = useState(false);
   const [secretOtp, setSecretOtp] = useState("");
   const [otpInput, setOtpInput] = useState("");
@@ -118,11 +117,7 @@ function RegisterPage() {
     setOtpInput("");
     setCountdown(45);
 
-    if (verifyChannel === "email") {
-      await sendRealEmailOTP(email, name, generated);
-    } else {
-      await sendRealSmsOTP(fullPhone, generated);
-    }
+    await sendRealEmailOTP(email, name, generated);
   };
 
   const startVerification = (e: React.FormEvent) => {
@@ -138,7 +133,7 @@ function RegisterPage() {
 
   const completeRegistration = () => {
     if (otpInput.trim() !== secretOtp) {
-      toast.error("❌ Invalid verification code! Please enter the exact 6-digit code sent to your inbox/phone.");
+      toast.error("❌ Invalid verification code! Please enter the exact 6-digit code sent to your email.");
       return;
     }
 
@@ -147,7 +142,7 @@ function RegisterPage() {
       email,
       phone: fullPhone,
       role: role ?? "citizen",
-      city,
+      city: role === "citizen" || role === "municipal" ? city : undefined,
       cnic: role === "citizen" ? cnic : undefined,
       org: role !== "citizen" ? org : city,
     });
@@ -231,7 +226,7 @@ function RegisterPage() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder={role === "citizen" ? "Nabeel Shahid" : "Sara Iqbal"}
+              placeholder={role === "citizen" ? "e.g. Alex Morgan" : "e.g. Sara Iqbal"}
               className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
             />
           </Field>
@@ -276,28 +271,30 @@ function RegisterPage() {
             )}
           </div>
 
-          <div>
-            <label className="block">
-              <span className="mb-1.5 block text-xs font-semibold text-muted-foreground">
-                City / District *
-              </span>
-              <span className="relative block">
-                <MapPin className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                <select
-                  required
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
-                >
-                  {CITIES.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </span>
-            </label>
-          </div>
+          {(role === "citizen" || role === "municipal") && (
+            <div>
+              <label className="block">
+                <span className="mb-1.5 block text-xs font-semibold text-muted-foreground">
+                  City / District *
+                </span>
+                <span className="relative block">
+                  <MapPin className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <select
+                    required
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
+                  >
+                    {CITIES.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+              </label>
+            </div>
+          )}
 
           {role !== "citizen" && (
             <Field
@@ -346,37 +343,6 @@ function RegisterPage() {
             />
           </Field>
 
-          {/* Verification Channel Selector */}
-          <div>
-            <span className="mb-1.5 block text-xs font-semibold text-muted-foreground">
-              Send Security OTP Code via *
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setVerifyChannel("email")}
-                className={`flex h-10 items-center justify-center gap-2 rounded-lg border text-xs font-semibold transition ${
-                  verifyChannel === "email"
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-card text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                <Mail className="size-4" /> Email Address
-              </button>
-              <button
-                type="button"
-                onClick={() => setVerifyChannel("sms")}
-                className={`flex h-10 items-center justify-center gap-2 rounded-lg border text-xs font-semibold transition ${
-                  verifyChannel === "sms"
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border bg-card text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                <Phone className="size-4" /> Mobile SMS
-              </button>
-            </div>
-          </div>
-
           <button
             type="submit"
             disabled={hasDuplicateError}
@@ -386,7 +352,7 @@ function RegisterPage() {
                 : "bg-primary text-primary-foreground hover:bg-primary-hover shadow-[var(--shadow-glow)]"
             }`}
           >
-            <Send className="size-4" /> Send Verification Code <ArrowRight className="size-4" />
+            <Send className="size-4" /> Send Email Verification Code <ArrowRight className="size-4" />
           </button>
         </form>
       )}
@@ -398,11 +364,11 @@ function RegisterPage() {
             <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-primary/15 text-primary">
               <ShieldCheck className="size-6" />
             </div>
-            <h2 className="text-center text-lg font-bold">Security OTP Verification</h2>
+            <h2 className="text-center text-lg font-bold">Email Security Verification</h2>
             <p className="mt-1 text-center text-xs text-muted-foreground leading-relaxed">
-              We dispatched a 6-digit verification code to: <br />
+              We dispatched a 6-digit verification code to your email address: <br />
               <strong className="text-foreground font-semibold">
-                {verifyChannel === "email" ? email : fullPhone}
+                {email}
               </strong>
             </p>
 
