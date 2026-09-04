@@ -18,7 +18,7 @@ import { municipalNav } from "./municipal.dashboard";
 export const Route = createFileRoute("/municipal/hotspots")({
   head: () => ({
     meta: [
-      { title: "Hotspots — GreenPulse Karachi Operations" },
+      { title: "Hotspots — EcoSphere Karachi Operations" },
       {
         name: "description",
         content: "Prioritised recurring waste and drainage hotspots across Karachi.",

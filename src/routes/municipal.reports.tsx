@@ -7,12 +7,12 @@ import { municipalNav } from "./municipal.dashboard";
 export const Route = createFileRoute("/municipal/reports")({
   head: () => ({
     meta: [
-      { title: "Operations Reports — GreenPulse Municipal Portal" },
+      { title: "Operations Reports — EcoSphere Municipal Portal" },
       {
         name: "description",
         content: "Monthly and quarterly operations reports for Karachi municipal waste management.",
       },
-      { property: "og:title", content: "Operations Reports — GreenPulse" },
+      { property: "og:title", content: "Operations Reports — EcoSphere" },
       {
         property: "og:description",
         content: "Verified impact reports for city council and public disclosure.",
@@ -193,7 +193,7 @@ function MunicipalReports() {
 
         <Panel title="Public disclosure">
           <p className="text-sm leading-relaxed text-muted-foreground">
-            GreenPulse publishes a redacted version of every monthly report so citizens can track
+            EcoSphere publishes a redacted version of every monthly report so citizens can track
             how their reports translate into city action. Locations are shown at district level to
             protect contributor privacy.
           </p>

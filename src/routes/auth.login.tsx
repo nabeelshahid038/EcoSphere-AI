@@ -8,16 +8,16 @@ import { roleHome, type Role } from "@/lib/mock-data";
 export const Route = createFileRoute("/auth/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — GreenPulse Verified Impact Platform" },
+      { title: "Sign in — EcoSphere Verified Impact Platform" },
       {
         name: "description",
         content:
-          "Sign in to GreenPulse to log environmental actions, verify field evidence and report measured impact.",
+          "Sign in to EcoSphere to log environmental actions, verify field evidence and report measured impact.",
       },
-      { property: "og:title", content: "Sign in — GreenPulse" },
+      { property: "og:title", content: "Sign in — EcoSphere" },
       {
         property: "og:description",
-        content: "Access your GreenPulse workspace for verified environmental impact.",
+        content: "Access your EcoSphere workspace for verified environmental impact.",
       },
     ],
   }),
@@ -81,7 +81,7 @@ function LoginPage() {
         </button>
       </form>
       <p className="mt-5 text-center text-sm text-muted-foreground">
-        New to GreenPulse?{" "}
+        New to EcoSphere?{" "}
         <Link to="/auth/register" className="font-semibold text-primary hover:underline">
           Create an account
         </Link>
@@ -112,7 +112,7 @@ export function AuthShell({
         {children}
       </div>
       <Link to="/" className="mt-6 text-xs text-muted-foreground hover:text-foreground">
-        ← Back to greenpulse.io
+        ← Back to ecosphere.io
       </Link>
     </main>
   );

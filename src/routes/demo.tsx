@@ -6,16 +6,16 @@ import { DemoModeDialog } from "@/components/gp/DemoMode";
 export const Route = createFileRoute("/demo")({
   head: () => ({
     meta: [
-      { title: "Demo Mode — Explore GreenPulse as any stakeholder" },
+      { title: "Demo Mode — Explore EcoSphere as any stakeholder" },
       {
         name: "description",
         content:
-          "Switch between citizen, NGO, corporate and municipal views of GreenPulse using the Karachi pilot dataset.",
+          "Switch between citizen, NGO, corporate and municipal views of EcoSphere using the Karachi pilot dataset.",
       },
-      { property: "og:title", content: "GreenPulse Demo Mode" },
+      { property: "og:title", content: "EcoSphere Demo Mode" },
       {
         property: "og:description",
-        content: "Explore every GreenPulse role with realistic Karachi pilot data.",
+        content: "Explore every EcoSphere role with realistic Karachi pilot data.",
       },
     ],
   }),

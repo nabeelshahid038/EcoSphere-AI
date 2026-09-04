@@ -7,13 +7,13 @@ import { useAuthStore } from "@/stores/auth";
 export const Route = createFileRoute("/citizen/home")({
   head: () => ({
     meta: [
-      { title: "Citizen Home — GreenPulse Karachi" },
+      { title: "Citizen Home — EcoSphere Karachi" },
       {
         name: "description",
         content:
-          "Your daily GreenPulse mission, GreenPoints, nearby verified activity and active Karachi campaigns.",
+          "Your daily EcoSphere mission, GreenPoints, nearby verified activity and active Karachi campaigns.",
       },
-      { property: "og:title", content: "Citizen Home — GreenPulse" },
+      { property: "og:title", content: "Citizen Home — EcoSphere" },
       { property: "og:description", content: "Your verified environmental actions in Karachi." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

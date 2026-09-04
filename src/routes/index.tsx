@@ -523,7 +523,7 @@ function Footer() {
         </div>
       </div>
       <p className="mx-auto mt-8 max-w-6xl text-[11px] text-muted-foreground">
-        © 2026 GreenPulse. All impact figures reflect independently verified records.
+        © 2026 EcoSphere. All impact figures reflect independently verified records.
       </p>
     </footer>
   );

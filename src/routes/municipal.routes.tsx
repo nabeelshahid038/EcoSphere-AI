@@ -7,12 +7,12 @@ import { collectionRoutes, fleetVehicles } from "@/lib/org-data";
 export const Route = createFileRoute("/municipal/routes")({
   head: () => ({
     meta: [
-      { title: "Collection Routes — GreenPulse Municipal Portal" },
+      { title: "Collection Routes — EcoSphere Municipal Portal" },
       {
         name: "description",
         content: "Plan, monitor and optimise municipal waste collection routes across Karachi.",
       },
-      { property: "og:title", content: "Collection Routes — GreenPulse" },
+      { property: "og:title", content: "Collection Routes — EcoSphere" },
       {
         property: "og:description",
         content: "Live route tracking and crew scheduling for city waste operations.",

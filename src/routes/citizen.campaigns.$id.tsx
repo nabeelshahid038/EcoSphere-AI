@@ -7,13 +7,13 @@ import { campaigns } from "@/lib/citizen-data";
 export const Route = createFileRoute("/citizen/campaigns/$id")({
   head: () => ({
     meta: [
-      { title: "Campaign Detail — GreenPulse" },
+      { title: "Campaign Detail — EcoSphere" },
       {
         name: "description",
         content:
-          "Campaign progress, verification map and gallery for GreenPulse Karachi environmental campaigns.",
+          "Campaign progress, verification map and gallery for EcoSphere Karachi environmental campaigns.",
       },
-      { property: "og:title", content: "Campaign Detail — GreenPulse" },
+      { property: "og:title", content: "Campaign Detail — EcoSphere" },
       { property: "og:description", content: "Track live campaign progress and join the drive." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

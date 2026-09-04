@@ -1,4 +1,4 @@
-# 🌿 GreenPulse AI
+# 🌿 EcoSphere AI
 ### Unified AI-Verified Environmental, EPR & CSR Infrastructure Platform
 
 [![Event](https://img.shields.io/badge/Hackathon-Bano%20Qabil%20AI%20(Grade%202A)-10B981?style=for-the-badge)](https://banoqabil.pk)
@@ -10,9 +10,9 @@
 
 ## 📌 Executive Summary
 
-**GreenPulse AI** is a B2B Data & Environmental Impact Infrastructure Platform that bridges **Citizens, Environmental NGOs, Corporate CSR/EPR Sponsors, and Municipal Authorities** into a unified, closed-loop ecosystem. 
+**EcoSphere AI** is a B2B Data & Environmental Impact Infrastructure Platform that bridges **Citizens, Environmental NGOs, Corporate CSR/EPR Sponsors, and Municipal Authorities** into a unified, closed-loop ecosystem. 
 
-Rather than relying purely on moral duty or unverified recycling clicks, GreenPulse AI uses **Alibaba Cloud AI (PAI & Function Compute)** and **CNIC-based Anti-Sybil Authentication** to convert everyday civic actions into cryptographically verifiable, **Audit-Ready ESG Disclosures** for corporations while rewarding citizens with real marketplace vouchers.
+Rather than relying purely on moral duty or unverified recycling clicks, EcoSphere AI uses **Alibaba Cloud AI (PAI & Function Compute)** and **CNIC-based Anti-Sybil Authentication** to convert everyday civic actions into cryptographically verifiable, **Audit-Ready ESG Disclosures** for corporations while rewarding citizens with real marketplace vouchers.
 
 ---
 
@@ -27,7 +27,7 @@ Rather than relying purely on moral duty or unverified recycling clicks, GreenPu
 
 ## 💡 2. The Solution & Target Audience
 
-GreenPulse AI creates a 4-sided incentive loop where every group's actions create immediate value for the other three:
+EcoSphere AI creates a 4-sided incentive loop where every group's actions create immediate value for the other three:
 
 ```
                       ┌────────────────────────────────────────┐
@@ -73,7 +73,7 @@ GreenPulse AI creates a 4-sided incentive loop where every group's actions creat
 
 ## 📊 3. Need Addressed & Commercial Feasibility
 
-GreenPulse AI operates on a high-margin **B2B SaaS & Data Infrastructure Model**:
+EcoSphere AI operates on a high-margin **B2B SaaS & Data Infrastructure Model**:
 
 1. **B2B CSR & EPR Compliance Audit Engine (Primary Driver — 60% Margin):**  
    Charges corporate sponsors a **10–15% platform management & audit fee** on funded drives. Provides compliance-ready PDF disclosures under the Pakistan CSR Act 2026.
@@ -150,8 +150,8 @@ This repository contains a **100% complete, fully responsive, error-free full-st
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/greenpulse-ai.git
-cd greenpulse-ai
+git clone https://github.com/YOUR_USERNAME/ecosphere-ai.git
+cd ecosphere-ai
 ```
 
 ### 2. Environment Variables
@@ -185,7 +185,7 @@ This repository contains **NO API keys, passwords, tokens, or confidential crede
 ---
 
 ## 👥 Authors & Acknowledgments
-- **Project:** GreenPulse AI
+- **Project:** EcoSphere AI
 - **Hackathon:** Bano Qabil AI Hackathon (Startup Track — Grade 2A Approved)
 - **Sponsor:** Alibaba Cloud
 - **License:** MIT License

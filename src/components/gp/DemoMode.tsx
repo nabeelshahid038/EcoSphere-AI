@@ -75,7 +75,7 @@ export function DemoModeDialog({
         <DialogHeader>
           <DialogTitle className="text-xl">Experience as…</DialogTitle>
           <DialogDescription>
-            Explore GreenPulse with pre-loaded Karachi pilot data. No account needed.
+            Explore EcoSphere with pre-loaded Karachi pilot data. No account needed.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-2">

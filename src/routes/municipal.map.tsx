@@ -32,7 +32,7 @@ import { municipalNav } from "./municipal.dashboard";
 export const Route = createFileRoute("/municipal/map")({
   head: () => ({
     meta: [
-      { title: "Municipal Live Map — GreenPulse Karachi Operations" },
+      { title: "Municipal Live Map — EcoSphere Karachi Operations" },
       {
         name: "description",
         content:

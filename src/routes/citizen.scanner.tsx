@@ -9,13 +9,13 @@ import { useAuthStore } from "@/stores/auth";
 export const Route = createFileRoute("/citizen/scanner")({
   head: () => ({
     meta: [
-      { title: "AI Waste Scanner — GreenPulse" },
+      { title: "AI Waste Scanner — EcoSphere" },
       {
         name: "description",
         content:
           "Point, scan and classify waste in seconds with on-device AI, then get bin-level disposal guidance.",
       },
-      { property: "og:title", content: "AI Waste Scanner — GreenPulse" },
+      { property: "og:title", content: "AI Waste Scanner — EcoSphere" },
       { property: "og:description", content: "Classify waste in 1.2s and find the nearest bin." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -123,10 +123,10 @@ function ScannerPage() {
   };
 
   const shareScan = async () => {
-    const text = `GreenPulse AI Scan: ${activeResult.item} (${activeResult.category}) verified with ${activeResult.confidence}% accuracy! Earned +${activeResult.points} GP points.`;
+    const text = `EcoSphere AI Scan: ${activeResult.item} (${activeResult.category}) verified with ${activeResult.confidence}% accuracy! Earned +${activeResult.points} GP points.`;
     try {
       if (navigator.share) {
-        await navigator.share({ title: "GreenPulse Scan Result", text });
+        await navigator.share({ title: "EcoSphere Scan Result", text });
         toast.success("Scan result shared successfully.");
         return;
       }

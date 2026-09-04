@@ -40,7 +40,7 @@ export const demoProfiles = {
     points: 2450,
     level: 7,
     city: "Karachi",
-    email: "ahmed.khan@greenpulse.io",
+    email: "ahmed.khan@ecosphere.io",
   },
   ngo: {
     role: "ngo" as Role,

@@ -8,13 +8,13 @@ import { useAuthStore } from "@/stores/auth";
 export const Route = createFileRoute("/citizen/report")({
   head: () => ({
     meta: [
-      { title: "Report an Issue — GreenPulse" },
+      { title: "Report an Issue — EcoSphere" },
       {
         name: "description",
         content:
           "Report illegal dumping, litter, open burning or blocked drains with live camera evidence, GPS and AI verification.",
       },
-      { property: "og:title", content: "Report an Issue — GreenPulse" },
+      { property: "og:title", content: "Report an Issue — EcoSphere" },
       { property: "og:description", content: "Tamper-proof issue reporting for Karachi." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

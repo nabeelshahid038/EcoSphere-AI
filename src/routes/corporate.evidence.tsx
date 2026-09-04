@@ -10,13 +10,13 @@ import { useAuthStore } from "@/stores/auth";
 export const Route = createFileRoute("/corporate/evidence")({
   head: () => ({
     meta: [
-      { title: "Evidence Center — GreenPulse Corporate Portal" },
+      { title: "Evidence Center — EcoSphere Corporate Portal" },
       {
         name: "description",
         content:
           "Browse the full verification trail behind every sponsored action: photos, GPS, timestamps, AI analysis and NGO sign-off.",
       },
-      { property: "og:title", content: "Evidence Center — GreenPulse" },
+      { property: "og:title", content: "Evidence Center — EcoSphere" },
       {
         property: "og:description",
         content: "Audit-ready verification trail for sponsored environmental impact.",

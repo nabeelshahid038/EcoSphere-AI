@@ -35,13 +35,13 @@ export const ngoNav: OrgNavItem[] = [
 export const Route = createFileRoute("/ngo/dashboard")({
   head: () => ({
     meta: [
-      { title: "NGO Dashboard — GreenPulse Verification" },
+      { title: "NGO Dashboard — EcoSphere Verification" },
       {
         name: "description",
         content:
           "Green Earth Foundation's verification workload: pending evidence, weekly verification volume, volunteers and audited recovery totals.",
       },
-      { property: "og:title", content: "NGO Dashboard — GreenPulse" },
+      { property: "og:title", content: "NGO Dashboard — EcoSphere" },
       {
         property: "og:description",
         content: "Human verification queue and analytics for AI-classified environmental actions.",

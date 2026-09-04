@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "GreenPulse — Verified Environmental Impact Infrastructure" },
+      { title: "EcoSphere — Verified Environmental Impact Infrastructure" },
       {
         name: "description",
         content:
           "AI-verified environmental impact infrastructure for citizens, NGOs, corporates and cities.",
       },
-      { name: "author", content: "GreenPulse" },
-      { property: "og:title", content: "GreenPulse" },
+      { name: "author", content: "EcoSphere" },
+      { property: "og:title", content: "EcoSphere" },
       { property: "og:description", content: "Turn environmental action into verified impact." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

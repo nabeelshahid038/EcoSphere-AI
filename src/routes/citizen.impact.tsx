@@ -9,13 +9,13 @@ import { useAuthStore } from "@/stores/auth";
 export const Route = createFileRoute("/citizen/impact")({
   head: () => ({
     meta: [
-      { title: "My Impact — GreenPulse" },
+      { title: "My Impact — EcoSphere" },
       {
         name: "description",
         content:
-          "Your verified GreenPulse Impact Score, waste recovered, hours volunteered and tree tracking in Karachi.",
+          "Your verified EcoSphere Impact Score, waste recovered, hours volunteered and tree tracking in Karachi.",
       },
-      { property: "og:title", content: "My Impact — GreenPulse" },
+      { property: "og:title", content: "My Impact — EcoSphere" },
       { property: "og:description", content: "Audited environmental impact, action by action." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

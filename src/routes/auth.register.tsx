@@ -10,13 +10,13 @@ import { sendRealEmailOTP } from "@/lib/otp-service";
 export const Route = createFileRoute("/auth/register")({
   head: () => ({
     meta: [
-      { title: "Create your GreenPulse account — Citizen, NGO, Corporate or City" },
+      { title: "Create your EcoSphere account — Citizen, NGO, Corporate or City" },
       {
         name: "description",
         content:
-          "Join GreenPulse as a citizen, NGO verifier, corporate sponsor or municipal authority and turn action into audit-ready impact.",
+          "Join EcoSphere as a citizen, NGO verifier, corporate sponsor or municipal authority and turn action into audit-ready impact.",
       },
-      { property: "og:title", content: "Create your GreenPulse account" },
+      { property: "og:title", content: "Create your EcoSphere account" },
       {
         property: "og:description",
         content: "Pick your role and start producing verified environmental impact evidence.",
@@ -162,7 +162,7 @@ function RegisterPage() {
       subtitle={
         role
           ? "We tailor verification workflows to your role."
-          : "First, choose how you'll use GreenPulse."
+          : "First, choose how you'll use EcoSphere."
       }
       wide={!role}
     >

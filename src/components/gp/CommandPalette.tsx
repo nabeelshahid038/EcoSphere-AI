@@ -22,10 +22,10 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 
-const commandEvent = "greenpulse:open-command-palette";
+const commandEvent = "ecosphere:open-command-palette";
 
 const pages = [
-  { label: "Home", detail: "GreenPulse landing", to: "/", icon: Home, group: "Explore" },
+  { label: "Home", detail: "EcoSphere landing", to: "/", icon: Home, group: "Explore" },
   {
     label: "Citizen home",
     detail: "Personal impact dashboard",

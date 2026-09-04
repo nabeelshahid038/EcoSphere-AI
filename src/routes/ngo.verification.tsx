@@ -15,13 +15,13 @@ import {
 export const Route = createFileRoute("/ngo/verification")({
   head: () => ({
     meta: [
-      { title: "Verification Queue — GreenPulse NGO Portal" },
+      { title: "Verification Queue — EcoSphere NGO Portal" },
       {
         name: "description",
         content:
           "Review AI-classified evidence with GPS, duplicate checks and community votes, then approve, reject or request more info.",
       },
-      { property: "og:title", content: "Verification Queue — GreenPulse" },
+      { property: "og:title", content: "Verification Queue — EcoSphere" },
       {
         property: "og:description",
         content: "Human-in-the-loop review of environmental action evidence.",

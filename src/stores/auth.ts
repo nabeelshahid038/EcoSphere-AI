@@ -222,7 +222,7 @@ export const useAuthStore = create<AuthState>()(
         });
       },
     }),
-    { name: "greenpulse-auth-v2" }
+    { name: "ecosphere-auth-v2" }
   )
 );
 

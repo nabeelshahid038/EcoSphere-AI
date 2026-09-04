@@ -14,13 +14,13 @@ import {
 export const Route = createFileRoute("/municipal/issues")({
   head: () => ({
     meta: [
-      { title: "Issue Queue — GreenPulse Municipal Portal" },
+      { title: "Issue Queue — EcoSphere Municipal Portal" },
       {
         name: "description",
         content:
           "Review, schedule and resolve citizen-reported waste issues across Karachi districts.",
       },
-      { property: "og:title", content: "Issue Queue — GreenPulse" },
+      { property: "og:title", content: "Issue Queue — EcoSphere" },
       {
         property: "og:description",
         content: "City operations issue queue with severity filters and location verification.",

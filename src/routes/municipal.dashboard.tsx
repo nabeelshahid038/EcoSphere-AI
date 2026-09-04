@@ -50,13 +50,13 @@ export const municipalNav: OrgNavItem[] = [
 export const Route = createFileRoute("/municipal/dashboard")({
   head: () => ({
     meta: [
-      { title: "Municipal Dashboard — GreenPulse Karachi Operations" },
+      { title: "Municipal Dashboard — EcoSphere Karachi Operations" },
       {
         name: "description",
         content:
           "Karachi Municipal Operations command dashboard: open reports, fleet status, district breakdown and verified citizen actions.",
       },
-      { property: "og:title", content: "Municipal Dashboard — GreenPulse" },
+      { property: "og:title", content: "Municipal Dashboard — EcoSphere" },
       {
         property: "og:description",
         content: "City-scale waste operations dashboard for Karachi.",

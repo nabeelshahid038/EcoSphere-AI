@@ -9,10 +9,10 @@ import { COUNTRY_CODES } from "./auth.register";
 export const Route = createFileRoute("/citizen/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile — GreenPulse" },
+      { title: "My Profile — EcoSphere" },
       {
         name: "description",
-        content: "View and update your GreenPulse CNIC-verified citizen profile and account settings.",
+        content: "View and update your EcoSphere CNIC-verified citizen profile and account settings.",
       },
     ],
   }),

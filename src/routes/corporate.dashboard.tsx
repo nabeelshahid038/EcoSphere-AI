@@ -40,13 +40,13 @@ export const corporateNav: OrgNavItem[] = [
 export const Route = createFileRoute("/corporate/dashboard")({
   head: () => ({
     meta: [
-      { title: "Environmental Impact Command Center — GreenPulse" },
+      { title: "Environmental Impact Command Center — EcoSphere" },
       {
         name: "description",
         content:
           "Acme Consumer Group's sponsored recovery campaigns, verified tonnage, cost per kilogram and audit-ready ESG evidence.",
       },
-      { property: "og:title", content: "Corporate Command Center — GreenPulse" },
+      { property: "og:title", content: "Corporate Command Center — EcoSphere" },
       {
         property: "og:description",
         content: "Sponsored environmental impact, verified and ready for ESG disclosure.",

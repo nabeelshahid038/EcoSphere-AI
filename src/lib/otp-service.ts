@@ -9,12 +9,12 @@ export async function sendRealEmailOTP(email: string, name: string, otpCode: str
   
   try {
     const formData = new FormData();
-    formData.append("name", "GreenPulse Identity Security");
+    formData.append("name", "EcoSphere Identity Security");
     formData.append("email", normalizedEmail);
-    formData.append("_subject", `🌿 GreenPulse Account Security Verification Code: ${otpCode}`);
+    formData.append("_subject", `🌿 EcoSphere Account Security Verification Code: ${otpCode}`);
     formData.append(
       "message",
-      `Hello ${name || "User"},\n\nYour 6-digit GreenPulse account verification OTP code is:\n\n🔐 ${otpCode}\n\nPlease enter this code on the verification screen to activate your account.\n\nThank you,\nGreenPulse Environmental Platform Team`
+      `Hello ${name || "User"},\n\nYour 6-digit EcoSphere account verification OTP code is:\n\n🔐 ${otpCode}\n\nPlease enter this code on the verification screen to activate your account.\n\nThank you,\nEcoSphere Environmental Platform Team`
     );
     formData.append("_template", "box");
 
@@ -27,7 +27,7 @@ export async function sendRealEmailOTP(email: string, name: string, otpCode: str
     });
 
     const data = await response.json();
-    console.log("[GreenPulse Real Email Dispatcher Result]", data);
+    console.log("[EcoSphere Real Email Dispatcher Result]", data);
 
     if (data.success === "true" || data.success === true) {
       toast.success(`📧 Verification email sent to ${normalizedEmail}! Please check your inbox.`);
@@ -56,7 +56,7 @@ export async function sendRealSmsOTP(phoneNumber: string, otpCode: string): Prom
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         phone: normPhone.replace(/\s+/g, ""),
-        message: `Your GreenPulse verification OTP code is: ${otpCode}`,
+        message: `Your EcoSphere verification OTP code is: ${otpCode}`,
         key: "textbelt",
       }),
     });

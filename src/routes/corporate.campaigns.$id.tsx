@@ -14,13 +14,13 @@ import {
 export const Route = createFileRoute("/corporate/campaigns/$id")({
   head: () => ({
     meta: [
-      { title: "Campaign Detail — GreenPulse Corporate Portal" },
+      { title: "Campaign Detail — EcoSphere Corporate Portal" },
       {
         name: "description",
         content:
           "Sponsored campaign performance: investment, verified recovery, impact map, participants, timeline and evidence trail.",
       },
-      { property: "og:title", content: "Campaign Detail — GreenPulse" },
+      { property: "og:title", content: "Campaign Detail — EcoSphere" },
       {
         property: "og:description",
         content: "Verified campaign impact with geo-tagged evidence.",
