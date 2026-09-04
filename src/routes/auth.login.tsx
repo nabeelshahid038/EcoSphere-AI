@@ -27,8 +27,8 @@ export const Route = createFileRoute("/auth/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
-  const [email, setEmail] = useState("ahmed.khan@greenpulse.io");
-  const [password, setPassword] = useState("demo1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [role, setRole] = useState<Role>("citizen");
 
   return (
@@ -41,10 +41,11 @@ function LoginPage() {
           navigate({ to: roleHome[role] });
         }}
       >
-        <Field icon={Mail} label="Work email">
+        <Field icon={Mail} label="Work / Personal email">
           <input
             type="email"
             required
+            placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
@@ -54,6 +55,7 @@ function LoginPage() {
           <input
             type="password"
             required
+            placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"

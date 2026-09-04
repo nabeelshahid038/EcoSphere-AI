@@ -99,7 +99,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        rel: "icon",
+        href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2310B981'/><path d='M16 26C21.5 26 26 21.5 26 16C26 10.5 21.5 6 16 6C10.5 6 6 10.5 6 16C6 21.5 10.5 26 16 26Z' fill='%230F3D2E' fill-opacity='0.2'/><path d='M11 21A7 7 0 0 1 9.8 7.1C15.5 6 17 5.48 19 3c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z' fill='%23FFFFFF'/></svg>",
+        type: "image/svg+xml",
+      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

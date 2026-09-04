@@ -4,6 +4,8 @@ import { BadgeCheck, Clock, Info, Recycle, TreePine, Zap, X } from "lucide-react
 import { CitizenShell, SectionTitle } from "@/components/gp/CitizenShell";
 import { citizenProfile, impactSummary, impactTimeline } from "@/lib/citizen-data";
 
+import { useAuthStore } from "@/stores/auth";
+
 export const Route = createFileRoute("/citizen/impact")({
   head: () => ({
     meta: [
@@ -24,18 +26,21 @@ export const Route = createFileRoute("/citizen/impact")({
 
 function ImpactPage() {
   const [open, setOpen] = useState(false);
+  const user = useAuthStore((s) => s.user);
+  const impactScore = user?.points ? Math.round(user.points * 3.8) : citizenProfile.impactScore;
+
   return (
     <CitizenShell>
       <h1 className="text-xl font-bold">My Impact</h1>
       <p className="mt-0.5 text-xs text-muted-foreground">
-        {citizenProfile.city} · lifetime, audited
+        {user?.city ?? citizenProfile.city} · lifetime, audited
       </p>
 
       <div className="card-surface mt-5 p-6 text-center">
         <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           Impact Score
         </p>
-        <p className="mt-2 text-6xl font-bold text-primary">{citizenProfile.impactScore}</p>
+        <p className="mt-2 text-6xl font-bold text-primary">{impactScore}</p>
         <button
           onClick={() => setOpen(true)}
           className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-info"

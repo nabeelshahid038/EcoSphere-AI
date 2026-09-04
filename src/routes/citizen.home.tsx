@@ -47,7 +47,7 @@ function CitizenHome() {
         </div>
         <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber/15 px-3 py-1.5 text-sm font-bold text-amber">
           <Coins className="size-4" />
-          {citizenProfile.points.toLocaleString()} GP
+          {(user?.points ?? citizenProfile.points).toLocaleString()} GP
         </span>
       </header>
 

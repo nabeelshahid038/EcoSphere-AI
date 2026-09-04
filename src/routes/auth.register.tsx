@@ -115,7 +115,7 @@ function RegisterPage() {
           className="mt-6 grid gap-4 border-t border-border pt-6"
           onSubmit={(e) => {
             e.preventDefault();
-            register(name, email, role, org);
+            register(name, email, role, org, cnic);
             navigate({ to: roleHome[role] });
           }}
         >
