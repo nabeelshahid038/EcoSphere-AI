@@ -4,6 +4,7 @@ import { BadgeCheck, Building2, Calendar, Mail, MapPin, Phone, Save, User as Use
 import { toast } from "sonner";
 import { CitizenShell, SectionTitle } from "@/components/gp/CitizenShell";
 import { useAuthStore } from "@/stores/auth";
+import { COUNTRY_CODES } from "./auth.register";
 
 export const Route = createFileRoute("/citizen/profile")({
   head: () => ({
@@ -25,23 +26,28 @@ function ProfilePage() {
   const updateProfile = useAuthStore((s) => s.updateProfile);
   const checkDuplicate = useAuthStore((s) => s.checkDuplicate);
 
+  const initialCode = COUNTRY_CODES.find((c) => user?.phone?.startsWith(c.code))?.code ?? "+92";
+  const initialNum = user?.phone ? user.phone.replace(/^[+\d]+\s*/, "") : "300 1234567";
+
   const [name, setName] = useState(user?.name ?? "");
-  const [phone, setPhone] = useState(user?.phone ?? "+92 300 1234567");
+  const [countryCode, setCountryCode] = useState(initialCode);
+  const [phoneNum, setPhoneNum] = useState(initialNum);
   const [city, setCity] = useState(user?.city ?? "Karachi");
   const [cnic, setCnic] = useState(user?.cnic ?? "42101-1234567-1");
   const [email, setEmail] = useState(user?.email ?? "");
+
+  const fullPhone = `${countryCode} ${phoneNum.trim()}`;
 
   const [duplicateErrors, setDuplicateErrors] = useState<{ cnic?: string; phone?: string; email?: string }>({});
 
   const handleFieldChange = (field: "cnic" | "phone" | "email", val: string) => {
     if (field === "cnic") setCnic(val);
-    if (field === "phone") setPhone(val);
     if (field === "email") setEmail(val);
 
     const dup = checkDuplicate(
       field === "email" ? val : email,
       field === "cnic" ? val : cnic,
-      field === "phone" ? val : phone,
+      field === "phone" ? val : fullPhone,
       user?.email
     );
 
@@ -55,7 +61,7 @@ function ProfilePage() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const dup = checkDuplicate(email, cnic, phone, user?.email);
+    const dup = checkDuplicate(email, cnic, fullPhone, user?.email);
     if (dup.emailExists || dup.cnicExists || dup.phoneExists) {
       toast.error("Please fix duplicate registration errors before saving.");
       return;
@@ -63,7 +69,7 @@ function ProfilePage() {
 
     updateProfile({
       name: name.trim(),
-      phone: phone.trim(),
+      phone: fullPhone,
       city,
       cnic: cnic.trim(),
       email: email.trim(),
@@ -160,16 +166,32 @@ function ProfilePage() {
             <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">
               Mobile Phone Number <span className="text-destructive">*</span>
             </label>
-            <div className="relative">
-              <Phone className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => handleFieldChange("phone", e.target.value)}
-                placeholder="+92 300 1234567"
-                className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
-              />
+            <div className="flex gap-2">
+              <select
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                className="h-10 rounded-lg border border-border bg-card px-2 text-xs font-semibold outline-none transition focus:border-primary shrink-0"
+              >
+                {COUNTRY_CODES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.flag} {c.code}
+                  </option>
+                ))}
+              </select>
+              <div className="relative flex-1">
+                <Phone className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  type="tel"
+                  required
+                  value={phoneNum}
+                  onChange={(e) => {
+                    setPhoneNum(e.target.value);
+                    handleFieldChange("phone", `${countryCode} ${e.target.value}`);
+                  }}
+                  placeholder="300 1234567"
+                  className="h-10 w-full rounded-lg border border-border bg-card pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
+                />
+              </div>
             </div>
             {duplicateErrors.phone && (
               <p className="mt-1 text-xs font-semibold text-destructive">{duplicateErrors.phone}</p>
