@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Leaf } from "lucide-react";
+import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Logo({ inverted = false, className }: { inverted?: boolean; className?: string }) {
   return (
-    <Link to="/" className={cn("inline-flex items-center gap-2", className)}>
-      <span className="grid size-8 place-items-center rounded-lg bg-primary shadow-[var(--shadow-glow)]">
-        <Leaf className="size-4 text-primary-foreground" strokeWidth={2.5} />
+    <Link to="/" className={cn("inline-flex items-center gap-2.5", className)}>
+      <span className="grid size-8 place-items-center rounded-lg bg-primary shadow-[var(--shadow-glow)] transition-transform hover:scale-105">
+        <Globe className="size-4 text-primary-foreground" strokeWidth={2.5} />
       </span>
       <span
         className={cn(
@@ -14,8 +14,9 @@ export function Logo({ inverted = false, className }: { inverted?: boolean; clas
           inverted ? "text-primary-foreground" : "text-foreground",
         )}
       >
-        Green<span className="text-primary">Pulse</span>
+        Eco<span className="text-primary font-extrabold">Sphere</span>
       </span>
     </Link>
   );
 }
+
