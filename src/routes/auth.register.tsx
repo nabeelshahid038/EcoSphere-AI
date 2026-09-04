@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { AuthShell, Field } from "./auth.login";
 import { useAuthStore } from "@/stores/auth";
 import { roleHome, type Role } from "@/lib/mock-data";
+import { sendRealEmailOTP, sendRealSmsOTP } from "@/lib/otp-service";
 
 export const Route = createFileRoute("/auth/register")({
   head: () => ({
@@ -118,16 +119,9 @@ function RegisterPage() {
     setCountdown(45);
 
     if (verifyChannel === "email") {
-      toast.success(`📧 Verification code dispatched to ${email}. Please check your inbox (and spam folder).`, {
-        duration: 8000,
-      });
-      // Secure console log for developer verification testing
-      console.log(`[GreenPulse Secure Email Gateway] Sent OTP to ${email}: ${generated}`);
+      await sendRealEmailOTP(email, name, generated);
     } else {
-      toast.success(`📱 Verification code dispatched via SMS to ${fullPhone}.`, {
-        duration: 8000,
-      });
-      console.log(`[GreenPulse SMS Gateway] Sent OTP to ${fullPhone}: ${generated}`);
+      await sendRealSmsOTP(fullPhone, generated);
     }
   };
 
