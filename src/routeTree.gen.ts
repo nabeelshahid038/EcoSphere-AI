@@ -15,6 +15,7 @@ import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
 import { Route as CitizenHomeRouteImport } from './routes/citizen.home'
 import { Route as CitizenImpactRouteImport } from './routes/citizen.impact'
+import { Route as CitizenProfileRouteImport } from './routes/citizen.profile'
 import { Route as CitizenReportRouteImport } from './routes/citizen.report'
 import { Route as CitizenScannerRouteImport } from './routes/citizen.scanner'
 import { Route as CorporateDashboardRouteImport } from './routes/corporate.dashboard'
@@ -61,6 +62,11 @@ const CitizenHomeRoute = CitizenHomeRouteImport.update({
 const CitizenImpactRoute = CitizenImpactRouteImport.update({
   id: '/citizen/impact',
   path: '/citizen/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CitizenProfileRoute = CitizenProfileRouteImport.update({
+  id: '/citizen/profile',
+  path: '/citizen/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CitizenReportRoute = CitizenReportRouteImport.update({
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/auth/register': typeof AuthRegisterRoute
   '/citizen/home': typeof CitizenHomeRoute
   '/citizen/impact': typeof CitizenImpactRoute
+  '/citizen/profile': typeof CitizenProfileRoute
   '/citizen/report': typeof CitizenReportRoute
   '/citizen/scanner': typeof CitizenScannerRoute
   '/corporate/dashboard': typeof CorporateDashboardRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/auth/register': typeof AuthRegisterRoute
   '/citizen/home': typeof CitizenHomeRoute
   '/citizen/impact': typeof CitizenImpactRoute
+  '/citizen/profile': typeof CitizenProfileRoute
   '/citizen/report': typeof CitizenReportRoute
   '/citizen/scanner': typeof CitizenScannerRoute
   '/corporate/dashboard': typeof CorporateDashboardRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/auth/register': typeof AuthRegisterRoute
   '/citizen/home': typeof CitizenHomeRoute
   '/citizen/impact': typeof CitizenImpactRoute
+  '/citizen/profile': typeof CitizenProfileRoute
   '/citizen/report': typeof CitizenReportRoute
   '/citizen/scanner': typeof CitizenScannerRoute
   '/corporate/dashboard': typeof CorporateDashboardRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/citizen/home'
     | '/citizen/impact'
+    | '/citizen/profile'
     | '/citizen/report'
     | '/citizen/scanner'
     | '/corporate/dashboard'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/citizen/home'
     | '/citizen/impact'
+    | '/citizen/profile'
     | '/citizen/report'
     | '/citizen/scanner'
     | '/corporate/dashboard'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/citizen/home'
     | '/citizen/impact'
+    | '/citizen/profile'
     | '/citizen/report'
     | '/citizen/scanner'
     | '/corporate/dashboard'
@@ -310,6 +322,7 @@ export interface RootRouteChildren {
   AuthRegisterRoute: typeof AuthRegisterRoute
   CitizenHomeRoute: typeof CitizenHomeRoute
   CitizenImpactRoute: typeof CitizenImpactRoute
+  CitizenProfileRoute: typeof CitizenProfileRoute
   CitizenReportRoute: typeof CitizenReportRoute
   CitizenScannerRoute: typeof CitizenScannerRoute
   CorporateDashboardRoute: typeof CorporateDashboardRoute
@@ -371,6 +384,13 @@ declare module '@tanstack/react-router' {
       path: '/citizen/impact'
       fullPath: '/citizen/impact'
       preLoaderRoute: typeof CitizenImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/citizen/profile': {
+      id: '/citizen/profile'
+      path: '/citizen/profile'
+      fullPath: '/citizen/profile'
+      preLoaderRoute: typeof CitizenProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/citizen/report': {
@@ -502,6 +522,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRegisterRoute: AuthRegisterRoute,
   CitizenHomeRoute: CitizenHomeRoute,
   CitizenImpactRoute: CitizenImpactRoute,
+  CitizenProfileRoute: CitizenProfileRoute,
   CitizenReportRoute: CitizenReportRoute,
   CitizenScannerRoute: CitizenScannerRoute,
   CorporateDashboardRoute: CorporateDashboardRoute,

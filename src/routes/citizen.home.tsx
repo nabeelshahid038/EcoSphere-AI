@@ -31,23 +31,28 @@ const actionStyles = {
 
 function CitizenHome() {
   const user = useAuthStore((s) => s.user);
-  const first = user?.name?.split(" ")[0] ?? citizenProfile.firstName;
+  const isDemo = useAuthStore((s) => s.isDemo);
+  const first = user?.name?.split(" ")[0] ?? "Citizen";
   const today = new Date().toLocaleDateString("en-GB", {
     weekday: "long",
     day: "numeric",
     month: "long",
   });
 
+  const wasteKg = isDemo ? impactSummary.wasteKg : (user?.wasteKg ?? 0);
+  const actions = isDemo ? impactSummary.actions : (user?.actionsCount ?? 0);
+  const hours = isDemo ? impactSummary.hours : (user?.hoursVolunteered ?? 0);
+
   return (
     <CitizenShell>
       <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <div className="min-w-0">
           <h1 className="truncate text-xl font-bold">Good morning, {first}</h1>
-          <p className="mt-0.5 text-xs text-muted-foreground">{today} · Karachi</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">{today} · {user?.city ?? "Karachi"}</p>
         </div>
         <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber/15 px-3 py-1.5 text-sm font-bold text-amber">
           <Coins className="size-4" />
-          {(user?.points ?? citizenProfile.points).toLocaleString()} GP
+          {(user?.points ?? 0).toLocaleString()} GP
         </span>
       </header>
 
@@ -151,9 +156,9 @@ function CitizenHome() {
       <SectionTitle>Impact Summary</SectionTitle>
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Waste", value: `${impactSummary.wasteKg} kg` },
-          { label: "Actions", value: `${impactSummary.actions}` },
-          { label: "Hours", value: `${impactSummary.hours}` },
+          { label: "Waste", value: `${wasteKg} kg` },
+          { label: "Actions", value: `${actions}` },
+          { label: "Hours", value: `${hours}` },
         ].map((m) => (
           <div key={m.label} className="card-surface p-4 text-center">
             <p className="text-lg font-bold text-primary">{m.value}</p>

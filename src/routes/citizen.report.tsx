@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Camera, Check, Clock, MapPin, Sparkles } from "lucide-react";
 import { CitizenShell } from "@/components/gp/CitizenShell";
 import { myReports, reportTypes, type ReportStatus } from "@/lib/citizen-data";
+import { useAuthStore } from "@/stores/auth";
 
 export const Route = createFileRoute("/citizen/report")({
   head: () => ({
@@ -66,9 +67,33 @@ function ReportPage() {
 }
 
 function MyReports() {
+  const user = useAuthStore((s) => s.user);
+  const isDemo = useAuthStore((s) => s.isDemo);
+
+  const reports = isDemo
+    ? myReports
+    : (user?.userHistory ?? []).map((h, i) => ({
+        id: `REP-2026-00${i + 1}`,
+        type: h.action,
+        area: `${user?.city ?? "Karachi"} District`,
+        date: h.date,
+        status: h.verified ? ("Verified" as const) : ("Pending" as const),
+      }));
+
+  if (reports.length === 0) {
+    return (
+      <div className="mt-5 card-surface p-8 text-center border-dashed border-2">
+        <p className="text-sm font-semibold">No reports submitted yet</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Use the "New Report" tab above to record dumping hotspots or environmental hazards!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-5 space-y-3">
-      {myReports.map((r) => (
+      {reports.map((r) => (
         <div key={r.id} className="card-surface flex items-center justify-between p-4">
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold">{r.type}</p>
@@ -102,6 +127,8 @@ function ReportWizard() {
   const [cameraOn, setCameraOn] = useState(false);
   const timestamp = new Date().toLocaleString("en-GB");
 
+  const addPoints = useAuthStore((s) => s.addPoints);
+
   useEffect(() => {
     if (step !== 2) return;
     let stream: MediaStream | undefined;
@@ -116,7 +143,13 @@ function ReportWizard() {
     return () => stream?.getTracks().forEach((t) => t.stop());
   }, [step]);
 
-  const next = () => setStep((s) => Math.min(6, s + 1));
+  const next = () => {
+    if (step === 5) {
+      // Submit report & award 80 GP
+      addPoints(80, `Report: ${type ?? "Dumping Hazard"}`, "🚩");
+    }
+    setStep((s) => Math.min(6, s + 1));
+  };
   const back = () => setStep((s) => Math.max(1, s - 1));
 
   return (

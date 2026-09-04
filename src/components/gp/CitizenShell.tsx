@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Home, ScanLine, Flag, BarChart3, Megaphone, LogOut, BadgeCheck } from "lucide-react";
+import { Home, ScanLine, Flag, BarChart3, Megaphone, LogOut, BadgeCheck, User as UserIcon } from "lucide-react";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuthStore } from "@/stores/auth";
@@ -9,7 +9,7 @@ const tabs = [
   { to: "/citizen/scanner", label: "Scan", icon: ScanLine },
   { to: "/citizen/report", label: "Report", icon: Flag },
   { to: "/citizen/impact", label: "Impact", icon: BarChart3 },
-  { to: "/citizen/campaigns", label: "Campaigns", icon: Megaphone },
+  { to: "/citizen/profile", label: "Profile", icon: UserIcon },
 ] as const;
 
 export function CitizenBottomNav() {
@@ -46,6 +46,7 @@ export function CitizenShell({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const logout = useAuthStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
   const navigate = useNavigate();
 
   return (
@@ -81,6 +82,13 @@ export function CitizenShell({
           </div>
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+            <Link
+              to="/citizen/profile"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1 text-xs font-semibold hover:border-primary/50"
+            >
+              <UserIcon className="size-3.5 text-primary" />
+              <span className="hidden sm:inline">{user?.name?.split(" ")[0] ?? "Profile"}</span>
+            </Link>
             <span className="hidden items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold text-primary md:inline-flex">
               <BadgeCheck className="size-3" /> CNIC Verified
             </span>

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { OrgShell } from "@/components/gp/OrgShell";
 import { corporateNav } from "./corporate.dashboard";
 import { evidenceGallery, evidenceTimeline, evidenceTypes } from "@/lib/org-data";
+import { useAuthStore } from "@/stores/auth";
 
 export const Route = createFileRoute("/corporate/evidence")({
   head: () => ({
@@ -29,7 +30,9 @@ export const Route = createFileRoute("/corporate/evidence")({
 
 function EvidenceCenter() {
   const [openId, setOpenId] = useState<string | null>(null);
-  const active = evidenceGallery.find((e) => e.id === openId) ?? null;
+  const isDemo = useAuthStore((s) => s.isDemo);
+  const gallery = isDemo ? evidenceGallery : [];
+  const active = gallery.find((e) => e.id === openId) ?? null;
 
   return (
     <OrgShell
@@ -61,31 +64,40 @@ function EvidenceCenter() {
         ))}
       </div>
 
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {evidenceGallery.map((e) => (
-          <button
-            key={e.id}
-            onClick={() => setOpenId(e.id)}
-            className="card-surface overflow-hidden text-left transition hover:-translate-y-1"
-          >
-            <div className={`grid h-36 place-items-center bg-gradient-to-br ${e.cover} text-5xl`}>
-              {e.emoji}
-            </div>
-            <div className="p-4">
-              <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-                {e.id}
-              </p>
-              <p className="mt-1 truncate text-sm font-semibold">{e.action}</p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                {e.date} · {e.location}
-              </p>
-              <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary">
-                <CheckCircle2 className="size-3.5" /> {e.level}
-              </span>
-            </div>
-          </button>
-        ))}
-      </div>
+      {gallery.length === 0 ? (
+        <div className="mt-6 card-surface p-10 text-center border-dashed border-2">
+          <p className="text-base font-semibold">No evidence packs collected yet</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Sponsor an active cleanup drive or EPR recycling campaign to view real-time audit-ready evidence packs!
+          </p>
+        </div>
+      ) : (
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {gallery.map((e) => (
+            <button
+              key={e.id}
+              onClick={() => setOpenId(e.id)}
+              className="card-surface overflow-hidden text-left transition hover:-translate-y-1"
+            >
+              <div className={`grid h-36 place-items-center bg-gradient-to-br ${e.cover} text-5xl`}>
+                {e.emoji}
+              </div>
+              <div className="p-4">
+                <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                  {e.id}
+                </p>
+                <p className="mt-1 truncate text-sm font-semibold">{e.action}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {e.date} · {e.location}
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary">
+                  <CheckCircle2 className="size-3.5" /> {e.level}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
 
       {active && (
         <div className="fixed inset-0 z-50 flex flex-col bg-foreground/80 lg:flex-row">
