@@ -2,9 +2,6 @@
 ### Unified AI-Verified Environmental, EPR & CSR Infrastructure Platform
 
 [![Event](https://img.shields.io/badge/Hackathon-Bano%20Qabil%20AI%20(Grade%202A)-10B981?style=for-the-badge)](https://banoqabil.pk)
-[![Sponsor](https://img.shields.io/badge/Sponsor-Alibaba%20Cloud-FF6A00?style=for-the-badge)](https://www.alibabacloud.com)
-[![Build Status](https://img.shields.io/badge/Build-Passing%20(0%20Errors)-0F3D2E?style=for-the-badge)]()
-[![Compliance](https://img.shields.io/badge/Compliance-Pakistan%20CSR%20Act%202026-F59E0B?style=for-the-badge)]()
 
 ---
 
